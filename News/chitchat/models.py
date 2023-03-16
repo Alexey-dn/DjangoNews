@@ -8,7 +8,8 @@ class Author(models.Model):
     ratingAuthor = models.IntegerField(default=0)
 
     def update_rating(self):
-        postRate = self.post_set.aggregate(postRating=Sum('rating'))
+        postRate = self.post_set.aggregate(postRating=Sum('rating')) #  метод _set позволяет реверсивно обратиться
+# через связанное поле author модели Post к ID полю модели Author
         p_r = 0
         p_r += postRate.get("postRating")
 
