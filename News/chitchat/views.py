@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.views.generic import ListView, DetailView
 from .models import Post
 
@@ -14,6 +16,14 @@ class PostList(ListView):
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
     context_object_name = 'news'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # К словарю добавим текущую дату в ключ 'time_now'.
+        context['time_now'] = datetime.utcnow()
+        # Добавим ещё одну пустую переменную,
+        # чтобы на её примере рассмотреть работу ещё одного фильтра.
+        context['next_sale'] = None
+        return context
 
 class PostDetail(DetailView):
     # Модель всё та же, но мы хотим получать информацию по отдельному товару
