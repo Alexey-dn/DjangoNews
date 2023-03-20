@@ -43,7 +43,7 @@ class Post(models.Model):
     post_type = models.CharField(max_length=1, choices=POST_TYPES, default=article)
     time_creation = models.DateTimeField(auto_now_add=True)
     post_category = models.ManyToManyField(Category, through='PostCategory')
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     text = models.TextField()
     rating = models.IntegerField(default=0)
 
@@ -57,6 +57,9 @@ class Post(models.Model):
 
     def preview(self):
         return f"{self.text[0:124]}..."
+
+    def __str__(self):
+        return f'{self.text} ({self.author})'
 
 
 class PostCategory(models.Model):
