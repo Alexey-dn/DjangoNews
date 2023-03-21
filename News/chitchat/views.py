@@ -7,14 +7,16 @@ from .models import Post
 class PostList(ListView):
     # Указываем модель, объекты которой мы будем выводить
     model = Post
+    ordering = '-time_creation'
     # Поле, которое будет использоваться для сортировки объектов
-    ordering = 'title'
+    # Если '-time_creation', то будет идти сортировка по дате создания(от последней к ранней)
+    # Если 'title', то по названию новостей
+    template_name = 'news.html'
     # Указываем имя шаблона, в котором будут все инструкции о том,
     # как именно пользователю должны быть показаны наши объекты
-    template_name = 'news.html'
+    context_object_name = 'news'
     # Это имя списка, в котором будут лежать все объекты.
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
-    context_object_name = 'news'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
