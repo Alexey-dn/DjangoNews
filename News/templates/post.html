@@ -1,6 +1,8 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
+{% load censor_filter %}
+
 <!-- Название у нас будет Product -->
 {% block title %}
 Post
@@ -11,6 +13,6 @@ Post
 <h2>{{ post.title }}</h2>
 <h6> (Дата публикации: {{ post.time_creation|date:'d M Y' }}) </h6>
 <hr>
-<h5>{{ post.text|linebreaks }} (автор: {{ post.author.authorUser }})</h5> <!-- linebreaks регулирует отступы -->
+<h5>{{ post.text|censor }} (автор: {{ post.author.authorUser }})</h5> <!-- linebreaks регулирует отступы -->
 
 {% endblock content %}

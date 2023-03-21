@@ -1,6 +1,8 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
+{% load censor_filter %}
+
 <!-- Название у нас будет products -->
 {% block title %}
 News
@@ -25,7 +27,7 @@ News
             <tr>
                 <td>{{ post.title }}</td>
                 <td>{{ post.time_creation }}</td>
-                <td>{{ post.text|truncatechars:20 }}</td>
+                <td>{{ post.text|censor|truncatechars:20 }}</td>
             </tr>
             {% endfor %}
         </table>
