@@ -9,6 +9,9 @@ News
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
     <h1>Все новости</h1>
+    <h6>Общее количество новостей на сайте: {{ news|length }}</h6>
+    <h3>Сегодня: {{ time_now|date:'d M Y' }}</h3>
+    <hr>
     <!-- Выводим товары, только если они есть с помощью тега if -->
     {% if news %}
         <table> <!-- Начинаем описывать таблицу -->
@@ -21,7 +24,7 @@ News
             {% for post in news %}
             <tr>
                 <td>{{ post.title }}</td>
-                <td>{{ post.time_now }}</td>
+                <td>{{ post.time_creation }}</td>
                 <td>{{ post.text|truncatechars:20 }}</td>
             </tr>
             {% endfor %}
