@@ -4,8 +4,8 @@ from django.db.models import Sum
 
 
 class Author(models.Model):
-    authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
-    ratingAuthor = models.IntegerField(default=0)
+    authorUser = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='автор')
+    ratingAuthor = models.IntegerField(default=0, verbose_name='рейтинг')
 
     def update_rating(self):
         postRate = self.post_set.aggregate(postRating=Sum('rating')) #  метод _set позволяет реверсивно обратиться
@@ -26,18 +26,18 @@ class Author(models.Model):
         self.save()
 
     def __str__(self):
-        return self.authorUser
+        return f'{self.authorUser}'
 
-    class Meta:
+    class Meta:  #  Возвращает название категории во множественном или единственном числе в админпанеле
         verbose_name = 'автор'
         verbose_name_plural = 'авторы'
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True, verbose_name='название')
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'категория'
@@ -53,13 +53,17 @@ class Post(models.Model):
         (article, 'Статья')
     ]
 
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    post_type = models.CharField(max_length=1, choices=POST_TYPES, default=article)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='автор')
+    #  verbose_name определяет имя поля, которое будет отображаться в админ панели внутри каждой модели
+    post_type = models.CharField(
+        max_length=1, choices=POST_TYPES,
+        default=article, verbose_name='тип новости'
+    )
     time_creation = models.DateTimeField(auto_now_add=True)
     post_category = models.ManyToManyField(Category, through='PostCategory')
-    title = models.CharField(max_length=100, unique=True)
-    text = models.TextField()
-    rating = models.IntegerField(default=0)
+    title = models.CharField(max_length=100, unique=True, verbose_name='заголовок')
+    text = models.TextField(verbose_name='текст')
+    rating = models.IntegerField(default=0, verbose_name='рейтинг')
 
     def like(self):
         self.rating += 1
@@ -86,11 +90,11 @@ class PostCategory(models.Model):
 
 
 class Comment(models.Model):
-    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user_comment = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.TextField()
+    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='статья')
+    user_comment = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='автор')
+    comment = models.TextField(verbose_name='комментарий')
     time_creation = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=0)
+    rating = models.IntegerField(default=0, verbose_name='рейтинг')
 
     def like(self):
         self.rating += 1
