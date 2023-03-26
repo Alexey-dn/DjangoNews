@@ -5,6 +5,8 @@ from .models import Post
 
 from django.http import HttpResponse
 
+from .filters import PostFilter
+
 
 class PostList(ListView):
     # Указываем модель, объекты которой мы будем выводить
@@ -21,11 +23,23 @@ class PostList(ListView):
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
     paginate_by = 2
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
+    def get_queryset(self):
+    # Получаем обычный запрос
+        queryset = super().get_queryset()
+    # Используем наш класс фильтрации.
+    # self.request.GET содержит объект QueryDict, который мы рассматривали
+    # в этом юните ранее.
+    # Сохраняем нашу фильтрацию в объекте класса,
+    # чтобы потом добавить в контекст и использовать в шаблоне.
+        self.filterset = PostFilter(self.request.GET, queryset)
+    # Возвращаем из функции отфильтрованный список товаров
+        return self.filterset.qs
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
     #     # К словарю добавим текущую дату в ключ 'time_now'.
     #     context['time_now'] = datetime.utcnow()
-    #     return context
+        context['filterset'] = self.filterset
+        return context
 
 class PostDetail(DetailView):
     # Модель всё та же, но мы хотим получать информацию по отдельному товару
