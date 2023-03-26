@@ -1,8 +1,11 @@
 from datetime import datetime
 
 from django.views.generic import ListView, DetailView
-from .models import Post
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
+from .models import Post
+from .forms import PostForm
 from django.http import HttpResponse
 
 from .filters import PostFilter
@@ -50,14 +53,12 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
 
-def multiply(request):
-    number = request.GET.get('number')
-    multiplier = request.GET.get('multiplier')
+def create_post(request):
+    form = PostForm()
 
-    try:
-        result = int(number) * int(multiplier)
-        html = f"<html><body>{number}*{multiplier}={result}</body></html>"
-    except (ValueError, TypeError):
-        html = f"<html><body>Invalid input.</body></html>"
-
-    return HttpResponse(html)
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/news/')
+    return render(request, 'post_create.html', {'form': form})
