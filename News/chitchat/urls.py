@@ -1,6 +1,6 @@
 from django.urls import path
 # Импортируем созданное нами представление
-from .views import PostList, PostDetail
+from .views import PostList, PostDetail, create_post
 
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
    # Если дженерик в файле views.py представлен в виде класса то в path
    # обработчик записывается в виде as_view(), а если представлен функцией,
    # то PostDetail.название функции, которую мы предварительно импортируем
+   path('create/', create_post, name='post_create'),
 ]
