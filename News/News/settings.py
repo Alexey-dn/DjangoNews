@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'chitchat',
+    'django_filters',
 ]
 
 SITE_ID = 1
