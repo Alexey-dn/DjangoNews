@@ -1,12 +1,9 @@
-from datetime import datetime
-
-from django.views.generic import ListView, DetailView
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.views.generic import (
+    ListView, DetailView, CreateView
+)
 
 from .models import Post
 from .forms import PostForm
-from django.http import HttpResponse
 
 from .filters import PostFilter
 
@@ -27,22 +24,24 @@ class PostList(ListView):
     paginate_by = 2
 
     def get_queryset(self):
-    # Получаем обычный запрос
+        # Получаем обычный запрос
         queryset = super().get_queryset()
-    # Используем наш класс фильтрации.
-    # self.request.GET содержит объект QueryDict, который мы рассматривали
-    # в этом юните ранее.
-    # Сохраняем нашу фильтрацию в объекте класса,
-    # чтобы потом добавить в контекст и использовать в шаблоне.
+        # Используем наш класс фильтрации.
+        # self.request.GET содержит объект QueryDict, который мы рассматривали
+        # в этом юните ранее.
+        # Сохраняем нашу фильтрацию в объекте класса,
+        # чтобы потом добавить в контекст и использовать в шаблоне.
         self.filterset = PostFilter(self.request.GET, queryset)
-    # Возвращаем из функции отфильтрованный список товаров
+        # Возвращаем из функции отфильтрованный список товаров
         return self.filterset.qs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-    #     # К словарю добавим текущую дату в ключ 'time_now'.
-    #     context['time_now'] = datetime.utcnow()
+        #     # К словарю добавим текущую дату в ключ 'time_now'.
+        #     context['time_now'] = datetime.utcnow()
         context['filterset'] = self.filterset
         return context
+
 
 class PostDetail(DetailView):
     # Модель всё та же, но мы хотим получать информацию по отдельному товару
@@ -53,12 +52,10 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
 
-def create_post(request):
-    form = PostForm()
-
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/news/')
-    return render(request, 'post_create.html', {'form': form})
+class PostCreate(CreateView):
+    # Указываем нашу разработанную форму
+    form_class = PostForm
+    # модель товаров
+    model = Post
+    # и новый шаблон, в котором используется форма.
+    template_name = 'post_create.html'
