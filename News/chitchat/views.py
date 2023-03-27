@@ -1,5 +1,5 @@
 from django.views.generic import (
-    ListView, DetailView, CreateView
+    ListView, DetailView, CreateView, UpdateView
 )
 
 from .models import Post
@@ -59,3 +59,10 @@ class PostCreate(CreateView):
     model = Post
     # и новый шаблон, в котором используется форма.
     template_name = 'post_create.html'
+
+
+class PostUpdate(UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_create.html'
+
