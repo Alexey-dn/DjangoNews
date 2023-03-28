@@ -22,7 +22,7 @@ class PostList(ListView):
     context_object_name = 'news'
     # Это имя списка, в котором будут лежать все объекты.
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         # Получаем обычный запрос
@@ -72,3 +72,25 @@ class PostDelete(DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
+
+
+class PostSearch(ListView):
+    model = Post
+    template_name = 'post_search.html'
+    context_object_name = 'search'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = PostFilter(self.request.GET, queryset)
+
+        if not self.request.GET:
+            return queryset.none()
+
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #     # К словарю добавим текущую дату в ключ 'time_now'.
+        #     context['time_now'] = datetime.utcnow()
+        context['filterset'] = self.filterset
+        return context
