@@ -28,7 +28,3 @@ class PostFilter(FilterSet):
             attrs={'type': 'date'},
         ),
     )
-
-    class Meta:
-        model = Post
-        fields = ['title', 'date', 'category']
