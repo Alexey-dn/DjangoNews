@@ -27,6 +27,7 @@ News
             <tr> <!-- Добавляем строку -->
                 <td>Заголовок</td>
                 <td>Дата публикации</td>
+                <td>Тип публикации</td>
                 <td>Краткое содержание</td>
             </tr>
 
@@ -34,6 +35,7 @@ News
             <tr>
                 <td>{{ post.title }}</td>
                 <td>{{ post.time_creation|date:'d M Y' }}</td>
+                <td>{{ post.post_type }}</td>
                 <td>{{ post.text|censor|truncatechars:20 }}</td>
             </tr>
             {% endfor %}
