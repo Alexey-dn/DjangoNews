@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = [
             'author',
-            'post_type',
+            # 'post_type',
             'post_category',
             'title',
             'text',
