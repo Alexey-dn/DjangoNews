@@ -20,23 +20,40 @@ News
 <!--        {# Добавим кнопку отправки данных формы #}-->
 <!--        <input type="submit" value="Найти" />-->
 <!--    </form>-->
-<!--    <hr>-->
+    <hr>
+    {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
+    {% if perms.chitchat.add_post %}
+    <a href="{% url 'post_create' %}">Добавить новость</a>
+    <a href="{% url 'article_create' %}">Добавить статью</a>
+    {% endif %}
+
     <!-- Выводим товары, только если они есть с помощью тега if -->
     {% if news %}
         <table> <!-- Начинаем описывать таблицу -->
             <tr> <!-- Добавляем строку -->
                 <td>Заголовок</td>
                 <td>Дата публикации</td>
-                <td>Тип публикации</td>
+<!--                <td>Тип публикации</td>-->
                 <td>Краткое содержание</td>
+                {% if perms.chitchat.change_post or perms.chitchat.delete_post %}
+                <td>Действия</td>
+                {% endif %}
             </tr>
 
             {% for post in news %}
             <tr>
                 <td>{{ post.title }}</td>
                 <td>{{ post.time_creation|date:'d M Y' }}</td>
-                <td>{{ post.post_type }}</td>
+<!--                <td>{{ post.post_type }}</td>-->
                 <td>{{ post.text|censor|truncatechars:20 }}</td>
+                <td>
+                    {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
+                    {% if perms.chitchat.change_post and post.author == request.user.author %}
+                    <a href="{% url 'post_update' pk=post.id %}">Изменить</a>
+                    {% endif %}
+                    {% if perms.chitchat.delete_post and post.author == request.user.author %}
+                    <a href="{% url 'post_delete' post.id %}">Удалить</a>
+                    {% endif %}
             </tr>
             {% endfor %}
         </table>
