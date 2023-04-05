@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -54,8 +54,8 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
 
-class PostCreate(LoginRequiredMixin, CreateView):
-    raise_exception = True
+class PostCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('chitchat.add_post',)
     # Указываем нашу разработанную форму
     form_class = PostForm
     # модель товаров
@@ -66,11 +66,12 @@ class PostCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.post_type = 'N'
+        form.instance.author = self.request.user.author
         return super().form_valid(form)
 
 
-class ArticleCreate(LoginRequiredMixin, CreateView):
-    raise_exception = True
+class ArticleCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('chitchat.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -82,15 +83,15 @@ class ArticleCreate(LoginRequiredMixin, CreateView):
 
 
 
-class PostUpdate(LoginRequiredMixin, UpdateView):
-    raise_exception = True
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('chitchat.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
 
 
-class PostDelete(LoginRequiredMixin, DeleteView):
-    raise_exception = True
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('chitchat.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
