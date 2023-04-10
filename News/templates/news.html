@@ -21,6 +21,7 @@ News
 <!--        <input type="submit" value="Найти" />-->
 <!--    </form>-->
     <hr>
+    <a href="{% url 'subscriptions' %}">Подписаться</a>
     {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
     {% if perms.chitchat.add_post %}
     <a href="{% url 'post_create' %}">Добавить новость</a>
