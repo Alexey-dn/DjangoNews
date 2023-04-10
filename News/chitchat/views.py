@@ -85,6 +85,7 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.post_type = 'A'
+        form.instance.author = self.request.user.author
         return super().form_valid(form)
 
 
