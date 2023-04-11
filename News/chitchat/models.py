@@ -36,6 +36,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name='название')
+    users = models.ManyToManyField(User, through='Subscription')
 
     def __str__(self):
         return f'{self.name.title()}'
