@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import warnings
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+    'django_apscheduler',
 ]
 
 SITE_ID = 1
@@ -118,11 +122,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -166,16 +170,19 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # 'django.core
 #  console - отправка писем в консоль Питона, smtp - отправка писем через почтовые сервисы
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "omneziya@yandex.ru"
-EMAIL_HOST_PASSWORD = "apwkwachtgcneyoo"
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 EMAIL_SUBJECT_PREFIX = ''  # "Hi, dude" - префикс добавляется при рассылке писем менеджерам
 
-DEFAULT_FROM_EMAIL = "omneziya@yandex.ru"
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
-SERVER_EMAIL = "omneziya@yandex.ru"
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
 
-ADMINS = (
+ADMINS = ADMINS = (
     ('Anton', 'ilyukhin1981@internet.ru'),
 )
+
+APSCHEDULER_DATETIME_FORMAT = 'N j, Y, f:s a'
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
