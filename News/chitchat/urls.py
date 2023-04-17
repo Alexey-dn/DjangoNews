@@ -4,6 +4,7 @@ from .views import (
     PostList, PostDetail, PostCreate, PostUpdate, PostDelete, PostSearch,
     ArticleCreate, subscriptions
 )
+from .views import IndexView
 
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     path('<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),
     path('search/', PostSearch.as_view(), name='post_search'),
     path('subscriptions/', subscriptions, name='subscriptions'),
+    path('index/', IndexView.as_view()),
 ]
