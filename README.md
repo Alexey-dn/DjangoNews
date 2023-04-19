@@ -1,4 +1,6 @@
 # DjangoNews
-Dear, mentor
-1. There are DjangoNews project in Python and Commandlist file in the root folder
-2. The censorship function has not been specifically enabled for titles 
+Dear, Skillfactory mentor
+1. I really do remember of the project describing in a readme file. I'm going to do it in the nearest future
+
+Faithfully yours,
+Alexey
