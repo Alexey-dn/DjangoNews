@@ -3,6 +3,7 @@
 
 {% load censor_filter %}
 {% load custom_tags %}
+{% load cache %}
 
 {% block title %}
 News
@@ -10,17 +11,19 @@ News
 
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-    <h1>Все новости</h1>
-    <!--<h6>Общее количество новостей на сайте: {{ news|length }}</h6>-->
-    <h3>Сегодня: {% current_time '%d %b %Y' %}</h3>
-    <hr>
+    {% cache 30 header %}
+        <h1>Все новости</h1>
+        <!--<h6>Общее количество новостей на сайте: {{ news|length }}</h6>-->
+        <h3>Сегодня: {% current_time '%d %b %Y' %}</h3>
+        <hr>
+    {% endcache %}
 <!--    <form action="" method="get">-->
 <!--        {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}-->
 <!--        {{ filterset.form.as_p }}-->
 <!--        {# Добавим кнопку отправки данных формы #}-->
 <!--        <input type="submit" value="Найти" />-->
 <!--    </form>-->
-    <hr>
+<!--    <hr>-->
     <a href="{% url 'subscriptions' %}">Подписаться</a>
     {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
     {% if perms.chitchat.add_post %}
