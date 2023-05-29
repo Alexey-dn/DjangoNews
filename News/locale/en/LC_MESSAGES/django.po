@@ -19,19 +19,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: .\templates\account\email\base_message.txt:1
 #, python-format
-msgid "Добро пожаловать на  %(site_name)s!"
-msgstr ""
+msgid "We glad to see you on %(site_name)s!"
+msgstr "Добро пожаловать на  %(site_name)s!"
 
 #: .\templates\account\email\base_message.txt:5
 #, python-format
 msgid ""
-"Спасибо, что пользуетесь %(site_name)s!\n"
+"Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Спасибо, что пользуетесь %(site_name)s!\n"
+"%(site_domain)s"
 
 #: .\templates\account\email\email_confirmation_message.txt:6
 #, python-format
 msgid ""
+"\n"
+"You received this message due to the user %(user_display)s put"
+"this email in registration form on %(site_domain)s.\n"
+"\n"
+"Follow the link %(activate_url)s\n"
+"\n"
+"Have a good day\n"
+msgstr ""
 "\n"
 "Вы получили это сообщение, потому что пользователь %(user_display)s указал "
 "этот email при регистрации на сайте %(site_domain)s.\n"
@@ -39,4 +49,3 @@ msgid ""
 "Для подтверждения регистрации пройдите по ссылке %(activate_url)s\n"
 "\n"
 "Хорошего дня!\n"
-msgstr ""
