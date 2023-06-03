@@ -58,6 +58,7 @@ News
                     {% if perms.chitchat.delete_post and post.author == request.user.author %}
                     <a href="{% url 'post_delete' post.id %}">Удалить</a>
                     {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </table>
