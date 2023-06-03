@@ -177,5 +177,11 @@ def subscriptions(request):
 
 class IndexView(View):
     def get(self, request):
-        hello.delay()
-        return HttpResponse('Hello!')
+        # . Translators: This message appears on the home page only
+        models = Post.objects.all()
+
+        context = {
+            'models': models,
+        }
+
+        return HttpResponse(render(request, 'default.html', context))
