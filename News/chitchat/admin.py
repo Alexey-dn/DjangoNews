@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Author, Post, Category, Comment
 
+from modeltranslation.admin import TranslationAdmin
+
 
 class PostAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Post._meta.get_fields()]
@@ -19,6 +21,22 @@ class PostAuthor(admin.ModelAdmin):
 class PostComment(admin.ModelAdmin):
     list_display = ('comment', 'user_comment', 'post_comment')
     search_fields = ('post_comment', 'user_comment')
+
+
+class CategoryAdmin(TranslationAdmin):
+    model = Category
+
+
+class AuthorAdmin(TranslationAdmin):
+    model = Author
+
+
+class PostAdmin(TranslationAdmin):
+    model = Post
+
+
+class CommentAdmin(TranslationAdmin):
+    model = Comment
 
 
 admin.site.register(Author, PostAuthor)
