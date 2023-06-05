@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-29 12:13+0300\n"
+"POT-Creation-Date: 2023-06-05 10:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,26 +16,168 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\accounts\forms.py:11
+msgid "Name"
+msgstr "Название"
+
+#: .\accounts\forms.py:30
+msgid "New user!"
+msgstr "Новый пользователь!"
+
+#: .\accounts\forms.py:31
+msgid "User"
+msgstr "Пользователь"
+
+#: .\accounts\forms.py:31
+msgid "registered on the site."
+msgstr "зарегистрировался на сайте."
+
+#: .\chitchat\filters.py:15 .\chitchat\models.py:87 .\templates\news.html:39
+#: .\templates\post_search.html:18
+msgid "Heading"
+msgstr "Заголовок"
+
+#: .\chitchat\filters.py:21 .\chitchat\models.py:47 .\chitchat\models.py:56
+#: .\chitchat\models.py:83
+msgid "Category"
+msgstr "Категория"
+
+#: .\chitchat\filters.py:22
+msgid "Any"
+msgstr "Любой"
+
+#: .\chitchat\filters.py:27
+msgid "Date"
+msgstr "Дата"
+
+#: .\chitchat\forms.py:27
+msgid "Heading must not be identical to text."
+msgstr "Заголовок не должен быть идентичен тексту"
+
+#: .\chitchat\forms.py:31
+msgid "Text length cannot be less 20 than characters"
+msgstr "Длина текста не должна быть менее 20 символов"
+
+#: .\chitchat\management\commands\postsdel.py:7
+msgid "Your command hint"
+msgstr "Команда подсказка"
+
+#: .\chitchat\management\commands\postsdel.py:13
+msgid "Do you really want to delete all articles in a category"
+msgstr "Вы действительно хотите удалить все статьи в категории"
+
+#: .\chitchat\management\commands\postsdel.py:13
+msgid "? yes/no \n"
+msgstr "? да/нет \n"
+
+#: .\chitchat\management\commands\postsdel.py:16
+msgid "Canceled"
+msgstr "Отменено"
+
+#: .\chitchat\models.py:15 .\chitchat\models.py:39 .\chitchat\models.py:72
+#: .\chitchat\models.py:132 .\templates\post.html:17
+msgid "Author"
+msgstr "Автор"
+
+#: .\chitchat\models.py:19 .\chitchat\models.py:90 .\chitchat\models.py:138
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: .\chitchat\models.py:40
+msgid "Authors"
+msgstr "Авторы"
+
+#: .\chitchat\models.py:48
+msgid "Enter a category name"
+msgstr "Введите название категории"
+
+#: .\chitchat\models.py:57
+msgid "Categories"
+msgstr "Категории"
+
+#: .\chitchat\models.py:65 .\templates\news.html:10
+msgid "News"
+msgstr "Новость"
+
+#: .\chitchat\models.py:66
+msgid "Article"
+msgstr "Статья"
+
+#: .\chitchat\models.py:79
+msgid "Post type"
+msgstr "Тип публикации"
+
+#: .\chitchat\models.py:80
+msgid "Choose a post type"
+msgstr "Выберете тип публикации"
+
+#: .\chitchat\models.py:89
+msgid "Text"
+msgstr "Текст"
+
+#: .\chitchat\models.py:114 .\chitchat\models.py:127 .\templates\post.html:9
+#: .\templates\post_created_email.html:10
+msgid "Post"
+msgstr "Публикация"
+
+#: .\chitchat\models.py:115
+msgid "Posts"
+msgstr "Публикации"
+
+#: .\chitchat\models.py:134 .\chitchat\models.py:153
+msgid "Comment"
+msgstr "Комментарий"
+
+#: .\chitchat\models.py:154
+msgid "Comments"
+msgstr "Комментарии"
+
+#: .\chitchat\models.py:170
+msgid "Subscription"
+msgstr "Подписка"
+
+#: .\chitchat\models.py:171 .\templates\subscriptions.html:5
+#: .\templates\subscriptions.html:20
+msgid "Subscriptions"
+msgstr "Подписки"
+
+#: .\templates\403.html:7
+msgid "Error 403"
+msgstr "Ошибка 403"
+
+#: .\templates\403.html:10
+msgid "It seems you do not have access to this page"
+msgstr "Кажется у вас нет прав доступа к этой странице"
+
 #: .\templates\account\email\base_message.txt:1
 #, python-format
-msgid "Добро пожаловать на  %(site_name)s!"
-msgstr "We glad to see you on %(site_name)s!"
+msgid "We are glad to see you here on  %(site_name)s!"
+msgstr "Добро пожаловать на  %(site_name)s!"
 
 #: .\templates\account\email\base_message.txt:5
 #, python-format
 msgid ""
-"Спасибо, что пользуетесь %(site_name)s!\n"
+"Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
-"Thank you for using %(site_name)s!\n"
+"Спасибо, что пользуетесь %(site_name)s!\n"
 "%(site_domain)s"
 
 #: .\templates\account\email\email_confirmation_message.txt:6
 #, python-format
 msgid ""
+"\n"
+"You have received this message due to the user %(user_display)s put this "
+"email in registration form on %(site_domain)s.\n"
+"\n"
+"Follow the link to confirm your registration %(activate_url)s\n"
+"\n"
+"Have a good day!\n"
+msgstr ""
 "\n"
 "Вы получили это сообщение, потому что пользователь %(user_display)s указал "
 "этот email при регистрации на сайте %(site_domain)s.\n"
@@ -43,11 +185,123 @@ msgid ""
 "Для подтверждения регистрации пройдите по ссылке %(activate_url)s\n"
 "\n"
 "Хорошего дня!\n"
-msgstr ""
-"\n"
-"You received this message due to the user %(user_display)s put"
-"this email in registration form on %(site_domain)s.\n"
-"\n"
-"Follow the link %(activate_url)s\n"
-"\n"
-"Have a good day\n"
+
+#: .\templates\daily_post.html:7
+msgid "Week update"
+msgstr "Новости недели"
+
+#: .\templates\daily_post.html:10
+msgid "Hi, there is news week update"
+msgstr "Привет! Новости этой недели"
+
+#: .\templates\flatpages\default.html:44
+msgid "Time zone:"
+msgstr "Часовой пояс:"
+
+#: .\templates\flatpages\default.html:64
+msgid "News portal"
+msgstr "Новостной портал"
+
+#: .\templates\flatpages\default.html:78
+msgid "Search"
+msgstr "Поиск"
+
+#: .\templates\flatpages\default.html:103
+msgid "Sign out"
+msgstr "Выйти"
+
+#: .\templates\flatpages\default.html:105
+msgid "Sign in"
+msgstr "Войти"
+
+#: .\templates\news.html:16
+msgid "All news"
+msgstr "Все новости"
+
+#: .\templates\news.html:18
+msgid "Today:"
+msgstr "Сегодня:"
+
+#: .\templates\news.html:28 .\templates\subscriptions.html:17
+msgid "Subscribe"
+msgstr "Подписаться"
+
+#: .\templates\news.html:31
+msgid "Add news"
+msgstr "Добавить новость"
+
+#: .\templates\news.html:32
+msgid "Add post"
+msgstr "Добавить публикацию"
+
+#: .\templates\news.html:40 .\templates\post_search.html:19
+msgid "Publication date"
+msgstr "Дата публикации"
+
+#: .\templates\news.html:42 .\templates\post_search.html:20
+msgid "Summary"
+msgstr "Краткое содержание"
+
+#: .\templates\news.html:44
+msgid "Options"
+msgstr "Выбор"
+
+#: .\templates\news.html:57
+msgid "Change"
+msgstr "Изменить"
+
+#: .\templates\news.html:60
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\templates\news.html:69
+msgid "There is no any news"
+msgstr "Нет новостей"
+
+#: .\templates\post.html:15
+msgid "Publication date:"
+msgstr "Дата публикации:"
+
+#: .\templates\post_create.html:5 .\templates\post_create.html:9
+msgid "NewPost"
+msgstr "НоваяПубликация"
+
+#: .\templates\post_create.html:14
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\templates\post_created_email.html:7
+msgid "PostUpdate"
+msgstr "ОбновлениеПубликации"
+
+#: .\templates\post_created_email.html:10
+msgid "Hi, New post out"
+msgstr "Привет! Вышла новая публикация"
+
+#: .\templates\post_created_email.html:10
+msgid "in your favorite section"
+msgstr "в твоем любим разделе"
+
+#: .\templates\post_delete.html:4
+msgid "PostDeletion"
+msgstr "УдалениеПубликации"
+
+#: .\templates\post_delete.html:6
+msgid "Post deletion"
+msgstr "Удаление публикации"
+
+#: .\templates\post_delete.html:10
+msgid "Delete?"
+msgstr "Удалить?"
+
+#: .\templates\post_search.html:5
+msgid "News search"
+msgstr "Поиск публикации"
+
+#: .\templates\post_search.html:34
+msgid "No news found"
+msgstr "Такой публикации не найдено"
+
+#: .\templates\subscriptions.html:18 .\templates\subscriptions.html:21
+msgid "Unsubscribe"
+msgstr "Отписаться"
