@@ -1,5 +1,6 @@
 from django_filters import FilterSet, ModelChoiceFilter, DateTimeFilter, CharFilter
 from django.forms import DateTimeInput
+from django.utils.translation import gettext_lazy as _
 from .models import Post, Category
 
 
@@ -11,19 +12,19 @@ class PostFilter(FilterSet):
     title = CharFilter(
         lookup_expr='icontains',
         field_name='title',
-        label='Заголовок',
+        label=_('Heading'),
     )
 
     category = ModelChoiceFilter(
         field_name='postcategory__category',
         queryset=Category.objects.all(),
-        label='Категория',
-        empty_label='Любая',
+        label=_('Category'),
+        empty_label=_('Any'),
     )
     date = DateTimeFilter(
         field_name='time_creation',
         lookup_expr='gt',
-        label='Дата',
+        label=_('Date'),
         widget=DateTimeInput(
             attrs={'type': 'date'},
         ),
