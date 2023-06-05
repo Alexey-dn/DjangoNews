@@ -1,25 +1,24 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.cache import cache
+from django.db.models import Exists, OuterRef
+from django.http.response import HttpResponse
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils import timezone
+from django.utils.translation import activate, get_supported_language_variant
+from django.views import View
+from django.views.decorators.csrf import csrf_protect
 from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView, DeleteView
+    CreateView, DeleteView, DetailView, ListView, UpdateView
 )
-
-from .models import Post
-from .forms import PostForm
+import pytz
 
 from .filters import PostFilter
-
-from django.contrib.auth.decorators import login_required
-from django.db.models import Exists, OuterRef
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_protect
-from .models import Subscription, Category
-
-from django.http import HttpResponse
-from django.views import View
-from .tasks import hello
-
-from django.core.cache import cache
+from .forms import PostForm
+from .models import Category, Subscription
+from .models import Post
 
 
 class PostList(ListView):
@@ -54,7 +53,14 @@ class PostList(ListView):
         #     # К словарю добавим текущую дату в ключ 'time_now'.
         #     context['time_now'] = datetime.utcnow()
         context['filterset'] = self.filterset
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
         return context
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        # return redirect('/posts/')
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
 class PostDetail(DetailView):
@@ -141,7 +147,14 @@ class PostSearch(ListView):
         #     # К словарю добавим текущую дату в ключ 'time_now'.
         #     context['time_now'] = datetime.utcnow()
         context['filterset'] = self.filterset
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
         return context
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        # return redirect('/search/')
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
@@ -177,11 +190,22 @@ def subscriptions(request):
 
 class IndexView(View):
     def get(self, request):
+        current_time = timezone.now()
+
         # . Translators: This message appears on the home page only
         models = Post.objects.all()
 
         context = {
             'models': models,
+            'current_time': current_time,
+            'timezones': pytz.common_timezones,  # добавляем в контекст все доступные часовые пояса
         }
 
         return HttpResponse(render(request, 'default.html', context))
+
+    #  по пост-запросу будем добавлять в сессию часовой пояс, который и будет обрабатываться написанным нами ранее middleware
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        # return redirect('/posts/')
+        return redirect(request.META.get('HTTP_REFERER'))
+
