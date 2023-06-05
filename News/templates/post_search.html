@@ -1,7 +1,8 @@
 {% extends 'flatpages/default.html' %}
 {% load censor_filter %}
+{% load i18n %}
 
-    <title>News search</title>
+    <title>{% trans 'News search' %}</title>
 
 {% block content %}
 <form action="" method="get">
@@ -14,9 +15,9 @@
 {% if search %}
         <table> <!-- Начинаем описывать таблицу -->
             <tr> <!-- Добавляем строку -->
-                <td>Заголовок</td>
-                <td>Дата публикации</td>
-                <td>Краткое содержание</td>
+                <td>{% trans 'Heading' %}</td>
+                <td>{% trans 'Publication date' %}</td>
+                <td>{% trans 'Summary' %}</td>
             </tr>
 
             {% for post in search %}
@@ -30,6 +31,6 @@
 
     {% else %}
 
-        <h2>Новостей не найдено!</h2>
+        <h2>{% trans 'No news found' %}</h2>
     {% endif %}
 {% endblock content %}

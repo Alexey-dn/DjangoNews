@@ -4,17 +4,18 @@
 {% load censor_filter %}
 {% load custom_tags %}
 {% load cache %}
+{% load i18n %}
 
 {% block title %}
-News
+{% trans 'News' %}
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
     {% cache 30 header %}
-        <h1>Все новости</h1>
+        <h1>{% trans 'All news' %}</h1>
         <!--<h6>Общее количество новостей на сайте: {{ news|length }}</h6>-->
-        <h3>Сегодня: {% current_time '%d %b %Y' %}</h3>
+        <h3>{% trans 'Today:' %} {% current_time '%d %b %Y' %}</h3>
         <hr>
     {% endcache %}
 <!--    <form action="" method="get">-->
@@ -24,23 +25,23 @@ News
 <!--        <input type="submit" value="Найти" />-->
 <!--    </form>-->
 <!--    <hr>-->
-    <a href="{% url 'subscriptions' %}">Подписаться</a>
+    <a href="{% url 'subscriptions' %}">{% trans 'Subscribe' %}</a>
     {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
     {% if perms.chitchat.add_post %}
-    <a href="{% url 'post_create' %}">Добавить новость</a>
-    <a href="{% url 'article_create' %}">Добавить статью</a>
+    <a href="{% url 'post_create' %}">{% trans 'Add news' %}</a>
+    <a href="{% url 'article_create' %}">{% trans 'Add post' %}</a>
     {% endif %}
 
     <!-- Выводим товары, только если они есть с помощью тега if -->
     {% if news %}
         <table> <!-- Начинаем описывать таблицу -->
             <tr> <!-- Добавляем строку -->
-                <td>Заголовок</td>
-                <td>Дата публикации</td>
+                <td>{% trans 'Heading' %}</td>
+                <td>{% trans 'Publication date' %}</td>
 <!--                <td>Тип публикации</td>-->
-                <td>Краткое содержание</td>
+                <td>{% trans 'Summary' %}</td>
                 {% if perms.chitchat.change_post or perms.chitchat.delete_post %}
-                <td>Действия</td>
+                <td>{% trans 'Options' %}</td>
                 {% endif %}
             </tr>
 
@@ -53,10 +54,10 @@ News
                 <td>
                     {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
                     {% if perms.chitchat.change_post and post.author == request.user.author %}
-                    <a href="{% url 'post_update' pk=post.id %}">Изменить</a>
+                    <a href="{% url 'post_update' pk=post.id %}">{% trans 'Change' %}</a>
                     {% endif %}
                     {% if perms.chitchat.delete_post and post.author == request.user.author %}
-                    <a href="{% url 'post_delete' post.id %}">Удалить</a>
+                    <a href="{% url 'post_delete' post.id %}">{% trans 'Delete' %}</a>
                     {% endif %}
                 </td>
             </tr>
@@ -65,7 +66,7 @@ News
 
     {% else %}
         <!-- Если товаров нет, говорим, что товаров нет ;) -->
-        <h2>Новостей нет!</h2>
+        <h2>{% trans 'There is no any news' %}</h2>
     {% endif %}
 
 {# Добавляем пагинацию на страницу #}

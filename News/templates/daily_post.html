@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% trans 'Week update' %}</title>
 </head>
 <body>
-<h2>Здравствуйте! Новые статьи за последнюю неделю</h2>
+<h2>{% trans 'Hi, there is news week update' %}</h2>
 <ul>
   {% for post in posts %}
   <li><a href="{{ link }}{{ post.get_absolute_url }}">{{ post.title }}</a> </li>

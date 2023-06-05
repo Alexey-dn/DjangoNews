@@ -2,17 +2,18 @@
 {% extends 'flatpages/default.html' %}
 
 {% load censor_filter %}
+{% load i18n %}
 
 <!-- Название у нас будет Product -->
 {% block title %}
-Post
+{% trans 'Post' %}
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
 {% block content %}
 <h2>{{ post.title }}</h2>
-<h6> (Дата публикации: {{ post.time_creation|date:'d M Y' }}) </h6>
+<h6> ({% trans 'Publication date:' %} {{ post.time_creation|date:'d M Y' }}) </h6>
 <hr>
-<h5>{{ post.text|censor }} (автор: {{ post.author.authorUser }})</h5> <!-- linebreaks регулирует отступы -->
+<h5>{{ post.text|censor }} ({% trans 'Author' %} {{ post.author.authorUser }})</h5> <!-- linebreaks регулирует отступы -->
 
 {% endblock content %}
