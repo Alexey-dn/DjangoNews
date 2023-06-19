@@ -14,11 +14,14 @@ from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView
 )
 import pytz
+from rest_framework import viewsets
+from rest_framework import permissions
 
 from .filters import PostFilter
 from .forms import PostForm
-from .models import Category, Subscription
+from .models import Category, Subscription, Author
 from .models import Post
+from .serializers import CategorySerializer, NewsSerializer, ArtsSerializer
 
 
 class PostList(ListView):
@@ -208,4 +211,23 @@ class IndexView(View):
         request.session['django_timezone'] = request.POST['timezone']
         # return redirect('/posts/')
         return redirect(request.META.get('HTTP_REFERER'))
+
+
+# --------------------------API-------------------------------------
+class NewsViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.filter(post_type='N')
+    serializer_class = NewsSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ArtsViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.filter(post_type='A')
+    serializer_class = ArtsSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CategoryViewest(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
