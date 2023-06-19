@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+from rest_framework import routers
+from chitchat import views
 
+
+router = routers.DefaultRouter()
+router.register(r'news', views.NewsViewset, basename='news')
+router.register(r'article', views.ArtsViewset, basename='article')
+router.register(r'category', views.CategoryViewest)
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -24,4 +32,11 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('news/', include('chitchat.urls')),
+    path('swagger-ui/', TemplateView.as_view(
+        template_name='swagger-ui.html',
+        extra_context={'schema_url': 'openapi-schema'}
+    ), name='swagger-ui'),
+    # path('', include(router.urls)),
+    path('api/', include(router.urls), name='api',),
+
 ]
