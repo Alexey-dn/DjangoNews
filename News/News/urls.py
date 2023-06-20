@@ -22,7 +22,7 @@ from chitchat import views
 
 router = routers.DefaultRouter()
 router.register(r'news', views.NewsViewset, basename='news')
-router.register(r'article', views.ArtsViewset, basename='article')
+router.register(r'article', views.ArtsViewset)
 router.register(r'category', views.CategoryViewest)
 
 urlpatterns = [
@@ -36,7 +36,5 @@ urlpatterns = [
         template_name='swagger-ui.html',
         extra_context={'schema_url': 'openapi-schema'}
     ), name='swagger-ui'),
-    # path('', include(router.urls)),
     path('api/', include(router.urls), name='api',),
-
 ]
